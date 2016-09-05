@@ -1,9 +1,9 @@
-FROM debian:unstable
-MAINTAINER dochang@gmail.com
+FROM ubuntu:latest
+MAINTAINER s@lavr.me
+# because dochang/debuild is stale
 
-RUN apt-get update
-# https://wiki.debian.org/BuildingTutorial
-RUN apt-get --yes install build-essential fakeroot devscripts
+RUN apt-get update && apt-get --yes install build-essential fakeroot devscripts equivs 
+RUN apt-get install --yes python-pip python-setuptools
 
 VOLUME ["/target"]
 
