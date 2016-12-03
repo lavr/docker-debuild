@@ -9,6 +9,8 @@ for i; do (
 	cd $i
 	mk-build-deps --install --remove --tool "apt-get --no-install-recommends --yes"
 	eval "debuild $DOCKER_DEBUILD_OPTS -us -uc --lintian-opts --allow-root"
-        [[ ! -z $LOCAL_USER_ID ]] && chown -R $LOCAL_USER_ID .
+        if test -n "$LOCAL_USER_ID"; then
+            chown -R $LOCAL_USER_ID .
+        fi
 )
 done
