@@ -9,13 +9,6 @@ for i; do (
 	cd $i
 	mk-build-deps --install --remove --tool "apt-get --no-install-recommends --yes"
 	eval "debuild $DOCKER_DEBUILD_OPTS -us -uc --lintian-opts --allow-root"
-
-        if [ -z "$LOCAL_USER_ID" ]
-        then
-            # do nothing
-        else
-            # Fix permission
-            chown -R $LOCAL_USER_ID .
-        fi
+        [[ ! -z $LOCAL_USER_ID ]] && chown -R $LOCAL_USER_ID .
 )
 done
